@@ -34,20 +34,20 @@
 
           <div id="buttons" class="w-full flex flex-col items-center gap-1 pt-5">
 
-              <button id="console-button" class="button-up" @click="move('up')">
+              <button id="console-button" class="button-up outline-none" @click="move('up')">
                 <img src="/icons/console/arrow-button.svg" alt="">
               </button>
 
               <div class="grid grid-cols-3 gap-1">
-                <button id="console-button" class="button-left" @click="move('left')">
+                <button id="console-button" class="button-left outline-none" @click="move('left')">
                   <img src="/icons/console/arrow-button.svg" alt="" class="-rotate-90">
                 </button>
 
-                <button id="console-button" class="button-down" @click="move('down')">
+                <button id="console-button" class="button-down outline-none" @click="move('down')">
                   <img src="/icons/console/arrow-button.svg" alt="" class="rotate-180">
                 </button>
 
-                <button id="console-button" class="button-right" @click="move('right')">
+                <button id="console-button" class="button-right outline-none" @click="move('right')">
                   <img src="/icons/console/arrow-button.svg" alt="" class="rotate-90">
                 </button>
             </div>
@@ -375,9 +375,12 @@
       } else {
         switch (event.keyCode) {
           case 32:
+            if(this.gameStarted) {
+              return;
+            }
             if(this.gameOver){
               this.startAgain();
-            }else {
+            } else {
               this.startGame();
             }
             break;

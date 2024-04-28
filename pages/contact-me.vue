@@ -18,7 +18,17 @@
                 <div id="links">
                     <div v-for="(source, key) in contact.direct.sources" :key="key" class="link">
                         <img :src="'/icons/' + key + '.svg'">
-                        <a v-html="source" href="/" class="font-fira_retina text-menu-text hover:text-white"></a>
+                        <a v-if="key === 'email'"
+                            :href="'mailto:' + source"
+                            class="font-fira_retina text-menu-text hover:text-white"
+                            v-html="source">
+                        </a>
+                        <a
+                            v-else-if="key === 'phone'"
+                            :href="'tel:' + source"
+                            class="font-fira_retina text-menu-text hover:text-white"
+                            v-html="source"
+                        ></a>
                     </div>
                 </div>
             </div>

@@ -7,15 +7,15 @@
                 find me in:
             </span>
             <div id="social-icons" class="flex">
-                <NuxtLink :to="social.twitter.url + social.twitter.user" target="_blank" class="flex justify-center items-center">
-                    <img src="/icons/social/twitter.svg"/>
+                <NuxtLink :to="social.telegram.url + social.telegram.user" target="_blank" class="flex justify-center items-center">
+                    <img src="/icons/social/telegram.svg"/>
                 </NuxtLink>
-                <NuxtLink :to="social.facebook.url + social.facebook.user" target="_blank" class="flex justify-center items-center">
-                    <img src="/icons/social/facebook.svg"/>
+                <NuxtLink :to="social.linkedIn.url + social.linkedIn.user" target="_blank" class="flex justify-center items-center">
+                    <img src="/icons/social/linkedin.svg"/>
                 </NuxtLink>
                 <NuxtLink :to="social.github.url + social.github.user" target="_blank" class="flex md:hidden justify-center items-center">
-                <img src="/icons/social/github.svg"/>
-            </NuxtLink>
+                    <img src="/icons/social/github.svg"/>
+                </NuxtLink>
             </div>
         </div>
 

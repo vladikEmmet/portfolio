@@ -152,6 +152,11 @@ main.page {
     font-size: 14px;
   }
 
+  #commented-text strong {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
   #mobile-page-title {
     display: none;
   }

@@ -18,14 +18,14 @@
       <div id="section-content" class="hidden lg:block w-full h-full border-right">
 
         <!-- title -->
-        <div id="section-content-title" class="hidden lg:flex items-center min-w-full">
+        <div id="section-content-title" class="hidden lg:flex items-center min-w-full" @click="openFile()">
           <img id="section-arrow-menu" src="/icons/arrow.svg" alt="" class="section-arrow mx-3 open">
           <p v-html="config.dev.about.sections[currentSection].title" class="font-fira_regular text-white text-sm"></p>
         </div>
 
         <!-- folders -->
-        <div>
-          <div v-for="(folder, key, index) in config.dev.about.sections[currentSection].info" :key="key" class="grid grid-cols-2 items-center my-2 font-fira_regular text-menu-text" @click="focusCurrentFolder(folder)">
+        <div id="section-content-folders">
+          <div v-for="(folder, key, index) in config.dev.about.sections[currentSection].info" :key="key" class="grid grid-cols-2 items-center my-2 font-fira_regular text-menu-text" @click="focusCurrentFolder(folder, key)">
             <div class="flex col-span-2 hover:text-white hover:cursor-pointer">
               <img id="diple" src="/icons/diple.svg" alt="" :class="{ open: isOpen(folder.title)}">
               <img :src="'/icons/folder' + (index+1) + '.svg'" alt="" class="mr-3">
@@ -41,14 +41,24 @@
         </div>
 
         <!-- contact -->
-        <div id="section-content-title-contact" class="flex items-center min-w-full border-top">
+        <div id="section-content-title-contact" class="flex items-center min-w-full border-top" @click="showContacts()">
           <img id="section-arrow-menu" src="/icons/arrow.svg" alt="" class="section-arrow mx-3 open">
-          <p v-html="config.dev.contacts.direct.title" class="font-fira_regular text-white text-sm"></p>
+          <p v-html="config.dev.contacts.direct.title" class="font-fira_regular text-white text-sm" id="contacts-title"></p>
         </div>
         <div id="contact-sources" class="hidden lg:flex lg:flex-col my-2">
           <div v-for="(source, key) in config.dev.contacts.direct.sources" :key="key" class="flex items-center mb-2">
-            <img :src="'/icons/' + key + '.svg'" alt="" class="mx-4">
-            <a v-html="source" href="/" class="font-fira_retina text-menu-text hover:text-white"></a>
+            <img :src="'/icons/' + key + '.svg'" alt="Contact-icon" class="mx-4">
+            <a v-if="key === 'email'"
+                :href="'mailto:' + source"
+                class="font-fira_retina text-menu-text hover:text-white"
+                v-html="source">
+            </a>
+            <a
+                v-else-if="key === 'phone'"
+                :href="'tel:' + source"
+                class="font-fira_retina text-menu-text hover:text-white"
+                v-html="source"
+            ></a>
           </div>
         </div>
 
@@ -66,19 +76,18 @@
           </div>
 
           <!-- folders -->
-          <div :id="'folders-' + section.title" class="hidden"> <!-- <div :id="'folders-' + section.title" :class="currentSection == section.title ? 'block' : 'hidden'"> -->
+          <div :id="'folders-' + section.title" class="hidden"> 
             <div v-for="(folder, key, index) in config.dev.about.sections[section.title].info" :key="key" class="grid grid-cols-2 items-center my-2 font-fira_regular text-menu-text hover:text-white hover:cursor-pointer" @click="focusCurrentFolder(folder)">
               <div class="flex col-span-2">
                 <img id="diple" src="/icons/diple.svg">
                 <img :src="'icons/folder' + (index+1) + '.svg'" alt="" class="mr-3">
                 <p :id="folder.title" v-html="key" :class="{ active: isActive(folder.title)}"></p>
               </div>
-              <div v-if="folder.files !== undefined" class="col-span-2">
+              <div v-if="folder.files !== undefined" class="col-span-2" :data-parent-folder="key">
                 <div v-for="(file, key) in folder.files" :key="key" class="hover:text-white hover:cursor-pointer flex my-2">
                   <img src="/icons/markdown.svg" alt="" class="ml-8 mr-3"/>
                   <p >{{ key }}</p>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -95,7 +104,7 @@
         <div id="contacts" class="hidden">
           <div v-for="(source, key) in config.dev.contacts.direct.sources" :key="key" class="flex items-center my-2">
             <img :src="'/icons/' + key + '.svg'" alt="">
-            <a v-html="source" href="/" class="font-fira_retina text-menu-text hover:text-white ml-4"></a>
+            <a v-html="source"  href="/" class="font-fira_retina text-menu-text hover:text-white ml-4"></a>
           </div>
         </div>
 
@@ -268,6 +277,10 @@
   padding: 0px 25px;
 }
 
+#section-content #contact-sources:not(.hidden) {
+  display: none!important;
+}
+
 </style>
 
 <script>
@@ -303,28 +316,44 @@ export default {
   },
   methods: {
     focusCurrentSection(section) {
-      this.currentSection = section.title
-      this.folder = Object.keys(section.info)[0]
+      this.currentSection = section.title;
+      this.folder = Object.keys(section.info)[0];
 
       document.getElementById('folders-' + section.title).classList.toggle('hidden') // show folders
       document.getElementById('section-arrow-' + section.title).classList.toggle('rotate-90'); // rotate arrow
     },
-    focusCurrentFolder(folder) {
-      this.folder = folder.title
+    openFile() {
+      const element = document.getElementById('section-content-title');
+      const arrow = element.querySelector('#section-arrow-menu');
+      arrow.classList.toggle('open'); // rotate arrow
+      const files = document.getElementById('section-content-folders');
+      files.classList.toggle('hidden'); // show folders
+    },
+    focusCurrentFolder(folder, key) {
+      this.folder = folder.title;
+      // const files = document.querySelectorAll(`[data-folder=${key}]`);
+      // files.className.toggle("visible");
       // handle if folder belongs to the current section. It happens when you click on a folder from a different section in mobile view.
-      this.currentSection = this.config.dev.about.sections[this.currentSection].info[folder.title] ? this.currentSection : Object.keys(this.config.dev.about.sections).find(section => this.config.dev.about.sections[section].info[folder.title])
+      this.currentSection = this.config.dev.about.sections[this.currentSection].info[folder.title] ? this.currentSection : Object.keys(this.config.dev.about.sections).find(section => this.config.dev.about.sections[section].info[folder.title]);
     },
     /**
      * TODO: Hay que crear un método para que cuando se haga click en un folder, se muestren los archivos que contiene. Y si se hace click en un archivo, se muestre el contenido del archivo.
      * TODO:  Además de girar el icono del diple.
      */
     toggleFiles() {
-      document.getElementById('file-' + this.folder).classList.toggle('hidden')
+      document.getElementById('file-' + this.folder).classList.toggle('hidden');
     },
     /* Mobile */
     showContacts() {
-      document.getElementById('contacts').classList.toggle('hidden')
-      document.getElementById('section-arrow').classList.toggle('rotate-90'); // rotate arrow
+      const contacts = document.getElementById('section-content-title-contact');
+      const contactsMobile = document.getElementById('contacts');
+      contactsMobile.classList.toggle("hidden");
+      const arrow = contacts.querySelector('#section-arrow-menu');
+      const arrowMobile = document.querySelector('#section-arrow');
+      arrowMobile.classList.toggle("rotate-90");
+      arrow.classList.toggle('open'); // rotate arrow
+      const files = document.getElementById('contact-sources');
+      files.classList.toggle('hidden'); // show folders
     },
   },
   mounted(){

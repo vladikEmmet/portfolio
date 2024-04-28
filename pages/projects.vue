@@ -84,9 +84,18 @@
               <p class="text-menu-text font-fira_retina text-sm mb-5">
                 {{ project.description }}
               </p>
-              <a id="view-button" :href="project.url" target="_blank" class="text-white font-fira_retina py-2 px-4 w-fit text-xs rounded-lg">
-                  view-project
-              </a>
+              <div class="flex justify-between align-middle">
+                <template v-if="project.demo">
+                  <a id="view-button" :href="project.demo" target="_blank" class="text-white font-fira_retina py-2 px-4 w-fit text-xs rounded-lg">
+                    view-project
+                  </a>
+                </template>
+                <template v-if="project.url">
+                  <a id="github-button" :href="project.url" target="_blank" class="text-white font-fira_retina py-2 px-4 w-fit text-xs rounded-lg">
+                    <img src="/icons/social/github.svg"/>
+                  </a>
+                </template>
+              </div>
             </div>
           </div>
         </div>
@@ -254,7 +263,7 @@ export default {
   },
   data() {
     return {
-      techs: ['React', 'HTML', 'CSS', 'Vue', 'Angular', 'Gatsby', 'Flutter'],
+      techs: ['React', 'Vue', 'NextJS', 'Typescript', 'Redux', 'VanillaJS', "Nuxt"],
       filters: ['all'],
       projects: '',
       loading: true,
