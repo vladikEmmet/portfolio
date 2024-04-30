@@ -31,10 +31,10 @@
               <img :src="'/icons/folder' + (index+1) + '.svg'" alt="" class="mr-3">
               <p :id="folder.title" v-html="key" :class="{ active: isActive(folder.title)}"></p>
             </div>
-            <div v-if="folder.files !== undefined" class="col-span-2">
-              <div v-for="(file, key) in folder.files" :key="key" class="hover:text-white hover:cursor-pointer flex my-2">
+            <div v-if="folder.files !== undefined && isActive(folder.title)" class="col-span-2">
+              <div v-for="(file, key) in folder.files" :key="key" class="hover:text-white hover:cursor-pointer flex my-2" @click="focusCurrentFile(key)">
                 <img src="/icons/markdown.svg" alt="" class="ml-8 mr-3"/>
-                <p >{{ key }}</p>
+                <p :class="{ active: isFileActive(key)}">{{ key }}</p>
               </div> 
             </div>
           </div>
@@ -84,7 +84,7 @@
                 <p :id="folder.title" v-html="key" :class="{ active: isActive(folder.title)}"></p>
               </div>
               <div v-if="folder.files !== undefined" class="col-span-2" :data-parent-folder="key">
-                <div v-for="(file, key) in folder.files" :key="key" class="hover:text-white hover:cursor-pointer flex my-2">
+                <div v-for="(file, key) in folder.files" :key="key" class="hover:text-white hover:cursor-pointer flex my-2" @click="focusCurrentFile(key)">
                   <img src="/icons/markdown.svg" alt="" class="ml-8 mr-3"/>
                   <p >{{ key }}</p>
                 </div>
@@ -138,7 +138,7 @@
         <div id="commented-text" class="flex h-full w-full lg:border-right overflow-hidden">
 
           <div class="w-full h-full ml-5 mr-10 lg:my-5 overflow-scroll">
-              <CommentedText :text="config.dev.about.sections[currentSection].info[folder].description" />
+              <CommentedText :text="(file && config.dev.about.sections[currentSection].info[folder]?.files[file]) ? config.dev.about.sections[currentSection].info[folder]?.files[file] : config.dev.about.sections[currentSection].info[folder].description"/>
           </div>
           
           <!-- scroll bar -->
@@ -291,6 +291,7 @@ export default {
       currentSection: 'personal-info',
       folder: 'bio',
       loading: true,
+      file: null,
     }
   },
   /**
@@ -313,10 +314,15 @@ export default {
     isOpen() {
       return folder => this.folder === folder;
     },
+    isFileActive() {
+      return file => this.file === file;
+    }
   },
   methods: {
     focusCurrentSection(section) {
       this.currentSection = section.title;
+      this.file = null;
+      console.log('section');
       this.folder = Object.keys(section.info)[0];
 
       document.getElementById('folders-' + section.title).classList.toggle('hidden') // show folders
@@ -329,12 +335,18 @@ export default {
       const files = document.getElementById('section-content-folders');
       files.classList.toggle('hidden'); // show folders
     },
-    focusCurrentFolder(folder, key) {
+    focusCurrentFolder(folder) {
+      if(this.folder === folder.title) return;
       this.folder = folder.title;
+      this.file = null;
       // const files = document.querySelectorAll(`[data-folder=${key}]`);
       // files.className.toggle("visible");
       // handle if folder belongs to the current section. It happens when you click on a folder from a different section in mobile view.
       this.currentSection = this.config.dev.about.sections[this.currentSection].info[folder.title] ? this.currentSection : Object.keys(this.config.dev.about.sections).find(section => this.config.dev.about.sections[section].info[folder.title]);
+    },
+    focusCurrentFile(file) {
+      this.file = file;
+      console.log(this.file);
     },
     /**
      * TODO: Hay que crear un método para que cuando se haga click en un folder, se muestren los archivos que contiene. Y si se hace click en un archivo, se muestre el contenido del archivo.

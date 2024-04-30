@@ -37,6 +37,13 @@ main.page {
   width: 100%;
 }
 
+/* Safari */
+@supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+  #__nuxt {
+    height: 95vh;
+  }
+}
+
 #section-content-title {
   width: 100%;
   min-height: 35px;

@@ -38,8 +38,8 @@
                         "title": "education",
                         "description": "<br>I have always been passionate about lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br><br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
                         "files": {
-                            "high-school": "I have been in 'Las viñas'...",
-                            "university": "The university..."
+                            "high-school": "<br>In high school, I tried to disengage from studying subjects that I did not consider most important for my future career. This allowed me to delve deeper into areas of interest to me, including web development. <br><br> However, I always studied well and never had grades lower than 4 (on a five-point scale).",
+                            "university": "<br>I studied at the First St. Petersburg State Medical University named after Pavlov, majoring in pediatrics. Two years later, I realized that medicine was not interesting to me and took up programming in depth. <br><br> Currently I am studying at Astana IT University, majoring in Big Data Analysis, where I actively participate in the educational process."
                         }
                     }
                 }
