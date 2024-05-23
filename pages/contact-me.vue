@@ -7,7 +7,6 @@
 
         <div id="page-menu" class="w-full h-full flex flex-col border-right">
 
-            <!-- contacts -->
             <div id="contacts" class="submenu">
                 <div class="title" @click="open('contacts')">
                     <img class="arrow" src="/icons/arrow.svg">
@@ -33,7 +32,6 @@
                 </div>
             </div>
 
-            <!-- find me also in -->
             <div id="find-me-in" class="submenu border-top">
                 <div class="title" @click="open('find-me-in')">
                     <img class="arrow" src="/icons/arrow.svg">
@@ -53,7 +51,6 @@
             
         <div class="flex flex-col w-full">
 
-        <!-- windows tab -->
         <div class="tab-height w-full hidden lg:flex border-right border-bot items-center">
 
                 <div class="flex items-center border-right h-full">
@@ -63,7 +60,6 @@
 
             </div>
 
-            <!-- main -->
             <div class="flex lg:grid lg:grid-cols-2 h-full w-full">
         
                 <div id="left" class="h-full w-full flex flex-col border-right items-center">
@@ -77,7 +73,6 @@
                     <div class="form-content">
                         <FormContentCode :name="name" :email="email" :message="message" />
                     </div>
-                    <!-- scroll bar -->
                     <div id="scroll-bar" class="h-full border-left flex justify-center py-1">
                         <div id="scroll"></div>
                     </div>

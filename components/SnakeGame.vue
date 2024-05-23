@@ -55,7 +55,6 @@
           </div>
         </div>
 
-        <!-- score board -->
         <div id="score-board" class="w-full flex flex-col pl-5">
           <p class="font-fira_retina text-white pt-5">// food left</p>
 
@@ -119,23 +118,17 @@
     methods: {
       startGame() {
 
-        // hide start button
         document.getElementById("start-button").style.display = "none";
 
-        // start game
         this.gameStarted = true;
         this.gameInterval = setInterval(this.moveSnake, 50);
       },
       startAgain() {
-        // Mostrar botón de start-game
         document.getElementById("start-button").style.display = "block";
-        
-        // Ocultar game over
+
         document.getElementById("game-over").style.display = "none";
         document.getElementById("congrats").style.display = "none";
 
-
-        // reiniciar datos del juego
         this.gameStarted = false;
         this.gameOver = false;
         this.restartScore();
@@ -200,33 +193,30 @@
             snakeCell => snakeCell.x === newX && snakeCell.y === newY
           )
         ) {
-          /* snake move next cell */
+
           this.snake.unshift({ x: newX, y: newY });
     
-          /* check snake next cell is food */
+
           if (newX === this.food.x && newY === this.food.y) {
-            
-            // add score
+
             this.score++;
 
-            // add food to score board
             const scoreFoods = document.getElementsByClassName("food");
             scoreFoods[this.score - 1].style.opacity = 1;
 
-            // check if score is 10 (max score)
+
             if(this.score === 10) {
 
-              // move snake head to food (fix snake head position at end)
-              this.snake.unshift({ x: newX, y: newY }); // move head
-              this.food = { x: null, y: null } // remove food
-              clearInterval(this.gameInterval); // stop game
-              document.getElementById('congrats').style.display = 'block' // show congrats
-              this.gameOver = true; // game over
-              this.gameStarted = false; // stop game
+
+              this.snake.unshift({ x: newX, y: newY });
+              this.food = { x: null, y: null }
+              clearInterval(this.gameInterval);
+              document.getElementById('congrats').style.display = 'block';
+              this.gameOver = true;
+              this.gameStarted = false;
 
             } else {
 
-              // create new food
               this.food = {
                 x: Math.floor(Math.random() * 24),
                 y: Math.floor(Math.random() * 40)
@@ -234,11 +224,9 @@
             }
 
           } else {
-            // if next cell is not food: snake pop last cell
             this.snake.pop();
           }
         } else {
-          // GAME OVER: if snake leave from game window or eat itself
           clearInterval(this.gameInterval);
           document.getElementById('game-over').style.display = 'block'
           this.gameStarted = false;
@@ -250,17 +238,13 @@
         let gameScreen = this.$refs.gameScreen;
         gameScreen.innerHTML = "";
 
-        // responsive cell screen
         // (this.$refs.gameScreen.offsetWidth / 20) + "px";
 
         /* const widthCells = window.innerWidth > 1536 ? 24 : 20; */
         const cellSize = window.innerWidth > 1536 ? "10px" : "8px";
-        // eje y
         for (let i = 0; i < 40; i++) {
-          // exe x
           for (let j = 0; j < 24; j++) {
 
-            /* cell style */
             let cell = document.createElement("div");
             cell.classList.add("cell");
             cell.style.width = cellSize
@@ -268,15 +252,13 @@
             cell.style.display = "flex";
             cell.style.flexShrink = 0;
             cell.classList.add("black");
-            
-            /* Food cell style */
+
             if (j === this.food.x && i === this.food.y) {
               cell.style.backgroundColor = "#43D9AD";
               cell.style.borderRadius = "50%";
               cell.style.boxShadow = "0 0 10px #43D9AD";
             }
-    
-            /* Estilo de la serpiente a medida que va crediendo */
+
             let snakeCell = this.snake.find(
                 snakeCell => snakeCell.x === j && snakeCell.y === i
             );
@@ -288,7 +270,6 @@
 
             }
 
-            /* Estilo de la cabeza */
             if (snakeCell && this.snake.indexOf(snakeCell) === 0) {
 
                 let headRadius = "5px";

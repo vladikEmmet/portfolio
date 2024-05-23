@@ -60,7 +60,7 @@ input {
     border-radius: 7px;
     
 }
-/* Change Autocomplete styles in Chrome*/
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,

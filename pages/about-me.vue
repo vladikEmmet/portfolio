@@ -176,7 +176,6 @@
             </div>
           </div>
 
-          <!-- scroll bar -->
           <div id="scroll-bar" class="h-full border-left hidden lg:flex justify-center py-1">
             <div id="scroll"></div>
           </div>
@@ -294,9 +293,7 @@ export default {
       file: null,
     }
   },
-  /**
-   * In setup we can define the data we want to use in the component before the component is created.
-   */
+
   setup() {
     const config = useRuntimeConfig()
     return {
@@ -304,7 +301,6 @@ export default {
     }
   },
   computed: {
-    // Set active class to current page link
     isActive() {
       return folder => this.folder === folder;
     },
@@ -348,10 +344,6 @@ export default {
       this.file = file;
       console.log(this.file);
     },
-    /**
-     * TODO: Hay que crear un método para que cuando se haga click en un folder, se muestren los archivos que contiene. Y si se hace click en un archivo, se muestre el contenido del archivo.
-     * TODO:  Además de girar el icono del diple.
-     */
     toggleFiles() {
       document.getElementById('file-' + this.folder).classList.toggle('hidden');
     },

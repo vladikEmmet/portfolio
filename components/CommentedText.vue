@@ -2,7 +2,6 @@
   <div class="code-container flex font-fira_retina text-menu-text">
     <div class="line-numbers lg:flex flex-col w-32 hidden">
 
-      <!-- line numbers and asteriscs -->
       <div v-for="n in lines" class="grid grid-cols-2 justify-end" :key="n">
         <span class="col-span-1 mr-3">{{ n }}</span>
         <div v-if="n == 1" class="col-span-1 flex justify-center">/**</div>
@@ -11,7 +10,6 @@
       </div>
     </div>
 
-    <!-- text -->
     <div class="text-container">
       <p v-html="text"></p>
     </div>

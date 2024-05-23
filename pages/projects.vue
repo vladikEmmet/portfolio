@@ -12,7 +12,6 @@
     </div>
     
     <div id="filter-menu" class="w-full flex-col border-right font-fira_regular text-menu-text hidden lg:flex">
-      <!-- title -->
       <div id="section-content-title" class="hidden lg:flex items-center min-w-full">
         <img id="section-arrow-menu" src="/icons/arrow.svg" alt="" class="section-arrow mx-3 open">
         <p class="font-fira_regular text-white text-sm">projects</p>
@@ -41,7 +40,6 @@
         </div>
       </div>
 
-      <!-- windows tab mobile -->
       <div id="tab" class="flex lg:hidden items-center">
           <span class="text-white"> // </span>
           <p class="font-fira_regular text-white text-sm px-3">projects</p>
@@ -49,7 +47,6 @@
           <p v-for="filter in filters" :key="filter" class="font-fira_regular text-menu-text text-sm px-3">{{ filter }};</p>
       </div>
 
-      <!-- projects -->
       <div id="projects-case" class="grid grid-cols-1 lg:grid-cols-2 max-w-full h-full overflow-scroll lg:self-center">
         <div id="not-found" class="hidden flex flex-col font-fira_retina text-menu-text my-5 h-full justify-center items-center">
           <span class="flex justify-center text-4xl pb-3">
@@ -64,14 +61,12 @@
         </div>
 
         <div id="project" v-for="(project, key, index) in projects" :key="key" class="lg:mx-5">
-          <!-- title -->
           <span class="flex text-sm my-3">
             <h3 v-if="index == null" class="text-purplefy font-fira_bold mr-3">Project {{ key + 1 }}</h3>
             <h3 v-else class="text-purplefy font-fira_bold mr-3">Project {{ index + 1 }}</h3>
             <h4 class="font-fira_retina text-menu-text"> // {{ project.title }}</h4>
           </span>
 
-          <!-- info -->
           <div id="project-card" class="flex flex-col">
             <div id="window">
               <div class="absolute flex right-3 top-3">
@@ -305,12 +300,6 @@ export default {
       document.getElementById('filter-menu').classList.toggle('hidden');
       document.getElementsByClassName('section-arrow')[0].classList.toggle('rotate-90');
     },
-    /**
-     * * Filter projects by techs
-     * * Each filter has to be an string with tech name that matches with project.tech !!
-     * ? If you want to filter projects that matches with ALL tech in filters, use 'every' instead of 'some'
-     * @param {*} filters is an array with techs names.
-     */
     filterProjectsBy(filters) {
       const projectArray = Object.values(this.config.public.dev.projects);
       return projectArray.filter(project => {

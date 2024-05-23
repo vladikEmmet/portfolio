@@ -1,7 +1,6 @@
 <template>
     <footer class='flex md:justify-between border-top text-menu-text font-fira_retina'>
 
-        <!-- social icons -->
         <div class="w-full flex justify-between md:justify-start">
             <span id="social-title" class="h-full flex justify-center items-center border-right px-5">
                 find me in:
@@ -19,7 +18,6 @@
             </div>
         </div>
 
-        <!-- github user -->
         <NuxtLink :to="social.github.url + social.github.user" target="_blank" class="hidden md:flex items-center px-5 border-left">
             @{{ social.github.user }}
             <img src="/icons/social/github.svg"/>
@@ -47,16 +45,16 @@ footer a:hover {
  }
 
 #social-icons > a > img {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
+    width: 1.25rem;
+    height: 1.25rem;
     margin: auto;
     opacity: 0.4;
 }
 
 footer > a > img {
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
-    margin-left: 0.5rem; /* 8px */
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.5rem;
   }
 
 #social-icons > a:hover img {
@@ -75,8 +73,8 @@ footer > a > img {
     }
 
     #social-icons > a > img {
-        width: 1.5rem; /* 20px */
-        height: 1.5rem; /* 20px */
+        width: 1.5rem;
+        height: 1.5rem;
   }
 }
 
