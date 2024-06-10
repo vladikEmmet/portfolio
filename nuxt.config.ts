@@ -1,7 +1,11 @@
-const config = require('./developer.json')
+import { defineNuxtModule } from "nuxt/kit"
+// import config from './developer.json'
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+
+const configPath = resolve(__dirname, './developer.json');
+const config = JSON.parse((readFileSync(configPath, 'utf-8')));
 const siteTitle = `${config.name} | ${config.role}`
-
-
 /*
  * Nuxt 3 Config File
  Usage: https://nuxt.com/docs/api/configuration/nuxt-config
@@ -52,17 +56,17 @@ export default defineNuxtConfig({
       '~/components',
     ],
   },
-  
+
   /**
    * * Tailwind CSS Config
    * Options: https://tailwindcss.nuxt.dev/getting-started/options/
    * Docs: https://tailwindcss.nuxt.dev
    */
   tailwindcss: {
-    cssPath: '~/assets/tailwind.css',
+    cssPath: ['~/assets/tailwind.css', {injectPosition: 0}],
     configPath: 'tailwind.config',
     exposeConfig: true, // true to resolve the tailwind config in runtime. https://tailwindcss.nuxt.dev/getting-started/options/#exposeconfig
-    injectPosition: 0,
+    // injectPosition: 0,
     viewer: false,
   },
 
@@ -76,7 +80,7 @@ export default defineNuxtConfig({
     // Keys within public are also exposed client-side
     public: {
       apiBase: '/api',
-      dev: config
+      dev: config,
     }
   }
 })

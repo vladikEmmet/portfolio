@@ -251,7 +251,7 @@ input[type="checkbox"]:focus {
 <script>
 export default {
   setup() {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig().public;
     return {
       config
     }
@@ -265,7 +265,7 @@ export default {
     };
   },
   mounted() {
-    this.projects = this.config.public.dev.projects;
+    this.projects = this.config.dev.projects;
     this.loading = false;
   },
   methods: {
@@ -282,7 +282,7 @@ export default {
         this.filters = this.filters.filter((item) => item !== tech); // remove tech from filters
         this.filters.length === 0 ? this.filters.push('all') : null; // add 'all' to filters if filters is empty
       }
-      this.filters[0] == 'all' ? this.projects = this.config.public.dev.projects : this.projects = this.filterProjectsBy(this.filters);
+      this.filters[0] == 'all' ? this.projects = this.config.dev.projects : this.projects = this.filterProjectsBy(this.filters);
 
       if(this.projects.length === 0){
         // set flex to projects-case

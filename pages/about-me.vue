@@ -172,7 +172,7 @@
 
             <div class="flex flex-col overflow-scroll">
               <!-- snippets -->
-              <GistSnippet data-aos="fade-down" v-for="(gist, key) in config.public.dev.gists" :key="key" :id="gist" />
+              <GistSnippet data-aos="fade-down" v-for="(gist, key) in config.dev.gists" :key="key" :id="gist" />
             </div>
           </div>
 
@@ -295,7 +295,7 @@ export default {
   },
 
   setup() {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig().public;
     return {
       config
     }
@@ -318,7 +318,6 @@ export default {
     focusCurrentSection(section) {
       this.currentSection = section.title;
       this.file = null;
-      console.log('section');
       this.folder = Object.keys(section.info)[0];
 
       document.getElementById('folders-' + section.title).classList.toggle('hidden') // show folders
@@ -342,7 +341,6 @@ export default {
     },
     focusCurrentFile(file) {
       this.file = file;
-      console.log(this.file);
     },
     toggleFiles() {
       document.getElementById('file-' + this.folder).classList.toggle('hidden');

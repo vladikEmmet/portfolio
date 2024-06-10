@@ -35,8 +35,8 @@
 					<span class="operator">
 						=
 					</span>
-					<a class="string" :href="'https://github.com/' + config.public.dev.contacts.social.github.user">
-						"https://github.com/{{ config.public.dev.contacts.social.github.user }}"
+					<a class="string" :href="'https://github.com/' + config.dev.contacts.social.github.user">
+						"https://github.com/{{ config.dev.contacts.social.github.user }}"
 					</a>
 				</p>
 			</div>
@@ -286,7 +286,7 @@
 export default {
   name: 'Hello',
   setup() {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig().public;
     return {
       config
     }

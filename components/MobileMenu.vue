@@ -40,7 +40,7 @@ export default {
     }
   },
   setup() {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig().public
 
     return {
       config
