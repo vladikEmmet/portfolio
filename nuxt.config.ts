@@ -22,6 +22,10 @@ export default defineNuxtConfig({
    * TODO: Add tags for social media sharing
    * TODO: Migrate apple-touch-icon config to manifest.json
    */
+  dir: {
+    static: 'public'
+  },
+
   app: {
     head: {
       title: siteTitle, // App window nav title
